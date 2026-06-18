@@ -1,0 +1,8 @@
+{
+    "name":"LOCALINK",
+    "short_name":"LOCALINK",
+    "start_url":"/",
+    "display":"standalone",
+    "background_color":"#2563eb",
+    "theme_color":"#2563eb"
+  }

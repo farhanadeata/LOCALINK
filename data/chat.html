@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>LOCALINK Chat</title>
+
+    <link rel="manifest" href="manifest.json" />
+    <link rel="icon" href="logo.svg" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <!-- SIDEBAR -->
+
+    <div id="sidebar" class="sidebar">
+      <div class="sidebar-header">
+        <h2>LOCALINK</h2>
+
+        <button class="close-btn" onclick="toggleSidebar()">✕</button>
+      </div>
+
+      <div class="sidebar-content">
+        <div class="profile-card">
+          <div class="avatar">👤</div>
+
+          <div>
+            <div id="profileName"></div>
+
+            <div id="profileRole"></div>
+          </div>
+        </div>
+
+        <button class="menu-btn" onclick="toggleTheme()">🌙 Dark Mode</button>
+
+        <button id="clearBtn" class="menu-btn danger">
+          🗑 Hapus Semua Chat
+        </button>
+
+        <button class="menu-btn" onclick="logout()">🚪 Keluar</button>
+      </div>
+    </div>
+
+    <!-- OVERLAY -->
+
+    <div id="overlay" class="overlay" onclick="toggleSidebar()"></div>
+
+    <!-- HEADER -->
+
+    <header class="topbar">
+      <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+
+      <div class="logo-area">
+        <div class="logo-icon">🔗</div>
+
+        <div>
+          <div class="logo-title">LOCALINK</div>
+
+          <div id="onlineCount" class="online-count">Online: 0</div>
+        </div>
+      </div>
+    </header>
+
+    <!-- CHAT -->
+
+    <div id="chatContainer" class="chat-container"></div>
+
+    <!-- TOAST -->
+
+    <div id="toast" class="toast"></div>
+
+    <!-- INPUT -->
+
+    <div class="input-container">
+      <input
+        type="text"
+        id="messageInput"
+        maxlength="250"
+        placeholder="Ketik pesan..."
+      />
+
+      <button id="sendBtn" class="send-btn">➤</button>
+    </div>
+
+    <script>
+      window.username = localStorage.getItem("username");
+
+      window.role = localStorage.getItem("role");
+      if (!username) {
+        location.href = "index.html";
+      }
+
+      document.getElementById("profileName").innerText = username;
+
+      document.getElementById("profileRole").innerText = role;
+
+      if (role !== "Admin") {
+        document.getElementById("clearBtn").style.display = "none";
+      }
+
+      function toggleSidebar() {
+        document.getElementById("sidebar").classList.toggle("active");
+
+        document.getElementById("overlay").classList.toggle("active");
+      }
+
+      function logout() {
+        localStorage.clear();
+
+        location.href = "index.html";
+      }
+
+      function showToast(text) {
+        const toast = document.getElementById("toast");
+
+        toast.innerText = text;
+
+        toast.classList.add("show");
+
+        setTimeout(() => {
+          toast.classList.remove("show");
+        }, 3000);
+      }
+
+      function toggleTheme() {
+        document.body.classList.toggle("dark");
+
+        const dark = document.body.classList.contains("dark");
+
+        localStorage.setItem("theme", dark ? "dark" : "light");
+      }
+
+      if (localStorage.getItem("theme") === "dark") {
+        document.body.classList.add("dark");
+      }
+
+      const input = document.getElementById("messageInput");
+
+      input.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") {
+          document.getElementById("sendBtn").click();
+        }
+      });
+    </script>
+
+    <script src="app.js"></script>
+  </body>
+</html>
