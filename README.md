@@ -175,7 +175,7 @@ LOCALINK/
 ### Clone Repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/LOCALINK.git
+git clone https://github.com/farhanadeata/LOCALINK.git
 ```
 
 ### Open Arduino IDE
